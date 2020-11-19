@@ -246,6 +246,9 @@ do { \
 #define TEST_NOT_SUPP(_fn_)         ASSERT_EQ_INT(OS_ERROR_NOT_SUPPORTED,      _fn_)
 #define TEST_GENERIC(_fn_)          ASSERT_EQ_INT(OS_ERROR_GENERIC,            _fn_)
 #define TEST_SUCCESS(_fn_)          ASSERT_EQ_INT(OS_SUCCESS,                  _fn_)
+// Check domain specific return codes
+#define TEST_CFG_PARAM_NOT_FOUND(_fn_) \
+            ASSERT_EQ_INT(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND, _fn_)
 
 /**
  * Check boolean expression and not an error code
