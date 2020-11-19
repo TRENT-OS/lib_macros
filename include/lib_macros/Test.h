@@ -60,32 +60,67 @@ static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
  * With the help of TEST_START() and TEST_FINISH() we can track which test is
  * currently running so we know the test's name in case an assertion is hit.
  *
- * TEST_START can take up to two arguments (which will be interpreted as int)
- * TEST_FINISH takes no arguments
+ * TEST_START() can take 0, 2, 4, 6 arguments which will then be used to
+ * generate the output message if a test fails.
+ *
+ * To be as flexible as possible, every argument for TEST_START() has to come
+ * with its own format specifier, here are some examples:
+ *
+ *  TEST_START()
+ *      Test has no arguments
+ *  TEST_START("i", mode)
+ *      Test has one argument (mode), which is an int
+ *  TEST_START("s", desc, "i", mode)
+ *      Test has two arguments (desc, mode), the first is a string and the second
+ *      an int.
  */
-
-// With this trick, we can map between zero to two arguments to the respective
-// "sub-macro" and use the appropriate format string.
-#define SELECT_START(_prfx_, _2, _1, _0, _sufx_, ...) \
-  _prfx_##_##_sufx_
-#define _TEST_START_STOP(...) \
-  Debug_ASSERT_PRINTFLN(0, "Too many arguments for TEST_START.")
-#define _TEST_START_2(_arg0_, _arg1_) \
-  snprintf(_testName, sizeof(_testName), "%s(%s=%i,%s=%i)", \
-           __func__, #_arg0_, (int)_arg0_, #_arg1_, (int)_arg1_)
-#define _TEST_START_1(_arg0_) \
-  snprintf(_testName, sizeof(_testName), "%s(%s=%i)", \
-           __func__, #_arg0_, (int)_arg0_)
+#define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
+    _prfx_##_##_sufx_
+#define _TEST_START_INVALID(...) \
+    Debug_ASSERT_PRINTFLN(0, "Invalid number of many arguments for TEST_START.")
+#define _TEST_START_3(_f0_,_p0_,_f1_,_p1_,_f2_,_p2_) \
+do { \
+    snprintf( \
+        _testName, sizeof(_testName), \
+        "%s(%s=%"_f0_",%s=%"_f1_",%s=%"_f2_")", \
+        __func__, #_p0_,_p0_,#_p1_,_p1_,#_p2_,_p2_ \
+    ); \
+} while(0)
+#define _TEST_START_2(_f0_,_p0_,_f1_,_p1_) \
+do { \
+    snprintf( \
+        _testName, sizeof(_testName), \
+        "%s(%s=%"_f0_",%s=%"_f1_")", \
+        __func__,#_p0_,_p0_,#_p1_,_p1_ \
+    ); \
+} while(0)
+#define _TEST_START_1(_f0_,_p0_) \
+do { \
+    snprintf( \
+        _testName, sizeof(_testName), \
+        "%s(%s=%"_f0_")", \
+        __func__,#_p0_,_p0_ \
+    ); \
+} while(0)
 #define _TEST_START_0(...) \
-  snprintf(_testName, sizeof(_testName), "%s", __func__)
+do { \
+    snprintf( \
+        _testName, sizeof(_testName), \
+        "%s", \
+        __func__ \
+    ); \
+} while(0)
 #define TEST_START(...) \
-  SELECT_START(_TEST_START, ##__VA_ARGS__, STOP, 2, 1, 0)(__VA_ARGS__)
+    SELECT_START( \
+        _TEST_START,##__VA_ARGS__, \
+        INVALID,3,3,2,2,1,1,INVALID,0 \
+    )(__VA_ARGS__)
 
 // This outputs the tests name as a marker that it has been completed. Also, we
 // reset the _testName to make incorrect use of TEST_START/TEST_FINISH more easy
 // to spot.
-#define TEST_FINISH() do \
-{ \
+#define TEST_FINISH() \
+do { \
     Debug_LOG_INFO("!!! %s: OK", _testName); \
     snprintf(_testName, sizeof(_testName), "<undefined>"); \
 } while(0)
