@@ -11,6 +11,7 @@
 #include "OS_Dataport.h"
 
 #include <string.h>
+#include <inttypes.h>
 
 #define CHECK_PTR_NOT_NULL(_ptr_) \
     do { \
@@ -51,8 +52,9 @@
         if ( !( (min <= value) && (value < max) ) ) \
         { \
             Debug_LOG_ERROR("%s: Parameter check failed! " \
-                            "Value of '%s' is not in range %zd - %zd", \
-                            __func__, #_value_, (size_t)min, (size_t)max); \
+                            "Value of '%s' is not in range " \
+                            "%"PRId64"-%"PRId64, \
+                            __func__, #_value_, (int64_t)min, (int64_t)max); \
             return OS_ERROR_INVALID_PARAMETER; \
         } \
     } while(0)
