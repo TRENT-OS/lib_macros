@@ -59,6 +59,21 @@
         } \
     } while(0)
 
+#define CHECK_VALUE_IN_CLOSED_INTERVAL(_value_,_min_,_max_) \
+    do { \
+        typeof(_value_) value = (_value_); \
+        typeof(_min_) min = (_min_); \
+        typeof(_max_) max = (_max_); \
+        if ( !( (min <= value) && (value <= max) ) ) \
+        { \
+            Debug_LOG_ERROR("%s: Parameter check failed! " \
+                            "Value of '%s' is not in closed interval " \
+                            "%"PRId64"-%"PRId64, \
+                            __func__, #_value_, (int64_t)min, (int64_t)max); \
+            return OS_ERROR_INVALID_PARAMETER; \
+        } \
+    } while(0)
+
 #define CHECK_STR_NOT_EMPTY(_str_) \
     do { \
         typeof(_str_) str = (_str_); \
