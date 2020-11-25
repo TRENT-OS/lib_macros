@@ -161,7 +161,7 @@ do { \
                             _testName, #_exp_, #_val_, _val_); \
         if(ret>=sizeof(msg)) \
         { \
-            printf("Message was truncated.\n"); \
+            Debug_LOG_WARNING("Message was truncated."); \
         } \
         __assert_fail(msg, __FILE__, __LINE__, __func__); \
     } \
@@ -305,7 +305,7 @@ do { \
         int ret = snprintf(msg, sizeof(msg), "@%s: %s", _testName, #_st_); \
         if(ret>=sizeof(msg)) \
         { \
-            printf("Message was truncated.\n"); \
+            Debug_LOG_WARNING("Message was truncated."); \
         } \
         __assert_fail(msg, __FILE__, __LINE__, __func__); \
     } \
