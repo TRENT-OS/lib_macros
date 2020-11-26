@@ -48,13 +48,7 @@
 # define _TEST_NAME_MAX_LEN 128
 #endif
 
-// We use this to keep track of the name of the test that is is currently being
-// executed, see below...
-#if defined(_testName)
-# error "_testName is already defined"
-#else
 static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
-#endif
 
 /*
  * With the help of TEST_START() and TEST_FINISH() we can track which test is
