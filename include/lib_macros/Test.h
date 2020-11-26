@@ -25,21 +25,6 @@
 #include <inttypes.h>
 
 /**
- * @brief   Max test frameworks message length
- *
- * This is an arbitrary value chosen so that it is not too big i.e. does not
- * pollute the test logs and does not have a big impact on the test run time but
- * on the other hand can store the test name, message itself, the path, and
- * the line number.
- *
- * Feel free to increase it if there is a strong need, but the current value
- * should be more than enough.
- */
-#if !defined(_TEST_MSG_MAX_LEN)
-# define _TEST_MSG_MAX_LEN 512
-#endif
-
-/**
  * @brief   Max test name length
  *
  * Name of the test function, should not be required to be too big.
@@ -155,21 +140,11 @@ do { \
     const typeof(_val_) val = _val_; \
     const bool compareResult = (exp _op_ val); \
     \
-    if(!compareResult) \
-    { \
-        char msg[_TEST_MSG_MAX_LEN]; \
-        const int ret = snprintf( \
-                            msg, sizeof(msg), \
-                            "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
-                            "[expected value: %" _fmt_ \
-                            " actual value: %" _fmt_ "]", \
-                            _testName, exp, val); \
-        if(ret>=sizeof(msg)) \
-        { \
-            Debug_LOG_WARNING("Message was truncated."); \
-        } \
-        __assert_fail(msg, __FILE__, __LINE__, __func__); \
-    } \
+    Debug_ASSERT_PRINTFLN( \
+        compareResult, \
+        "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
+        "[expected value: %" _fmt_ " actual value: %" _fmt_ "]", \
+        _testName, exp, val); \
 } while(0)
 
 /**
@@ -304,17 +279,7 @@ do { \
  */
 #define TEST_TRUE(_st_) do \
 { \
-    if(!(_st_)) \
-    { \
-        char msg[_TEST_MSG_MAX_LEN]; \
-        int ret = snprintf( \
-            msg, sizeof(msg), "@%s: " #_st_ "is not true.", _testName); \
-        if(ret>=sizeof(msg)) \
-        { \
-            Debug_LOG_WARNING("Message was truncated."); \
-        } \
-        __assert_fail(msg, __FILE__, __LINE__, __func__); \
-    } \
+    Debug_ASSERT_PRINTFLN(_st_, "@%s: " #_st_ "is not true.", _testName); \
 } while(0)
 
 #define ASSERT_TRUE(_val_)  TEST_TRUE(_val_)
