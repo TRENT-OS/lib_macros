@@ -151,7 +151,11 @@ do { \
  */
 #define ASSERT_COMPARE(_exp_,_val_,_fmt_,_op_) \
 do { \
-    if(!(_exp_ _op_ _val_)) \
+    const typeof(_exp_) exp = _exp_; \
+    const typeof(_val_) val = _val_; \
+    const bool compareResult = (exp _op_ val); \
+    \
+    if(!compareResult) \
     { \
         char msg[_TEST_MSG_MAX_LEN]; \
         const int ret = snprintf( \
