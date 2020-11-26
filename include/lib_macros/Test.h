@@ -43,14 +43,25 @@
  * @brief   Max test name length
  *
  * Name of the test function, should not be required to be too big.
-  */
+ */
 #if !defined(_TEST_NAME_MAX_LEN)
 # define _TEST_NAME_MAX_LEN 128
 #endif
 
+/**
+ * @brief   Name of the test being executed.
+ *
+ * Is set to the current test's name in the TEST_START macro, and is used for
+ * printing the results.
+ *
+ * @note    If TEST_START was not called, result still will be correctly printed
+ *          but test name will be set to "<undefined>".
+ */
 static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
 
-/*
+/**
+ * @brief   Test's start and finish macros.
+ *
  * With the help of TEST_START() and TEST_FINISH() we can track which test is
  * currently running so we know the test's name in case an assertion is hit.
  *
@@ -60,6 +71,7 @@ static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
  * To be as flexible as possible, every argument for TEST_START() has to come
  * with its own format specifier, here are some examples:
  *
+ * @code
  *  TEST_START()
  *      Test has no arguments
  *  TEST_START("i", mode)
@@ -67,6 +79,8 @@ static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
  *  TEST_START("s", desc, "i", mode)
  *      Test has two arguments (desc, mode), the first is a string and the
  *      second an int.
+ * @endcode
+ * @{
  */
 #define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
     _prfx_##_##_sufx_
@@ -118,6 +132,7 @@ do { \
     Debug_LOG_INFO("!!! %s: OK", _testName); \
     snprintf(_testName, sizeof(_testName), "<undefined>"); \
 } while(0)
+///@}
 
 /**
  * @brief   Compares expected and actual values with a given operator.
@@ -127,10 +142,11 @@ do { \
  * @note    Any C operator is accepted as parameter here as long as the result
  *          is a boolean value.
  *
- * @see     Other ASSERT_x macros for specific comparision functions.
+ * @see     Other ASSERT_xx macros for specific comparision functions.
  *
- * @param   _exp_ - [in] Expected value to be compered with.
- * @param   _val_ - [in] _val_ value that expected is compared with.
+ * @param   _exp_ - [in] Expected value to be compared with.
+ * @param   _val_ - [in] Actual value that expected value is compared with.
+ * @param   _fmt_ - [in] Value's format used for printing it.
  * @param   _op_  - [in] Comparision operator e.g. `==`, `<`, `>`.
  */
 #define ASSERT_COMPARE(_exp_,_val_,_fmt_,_op_) \
@@ -151,6 +167,28 @@ do { \
     } \
 } while(0)
 
+/**
+ * @brief   Compares expected and actual values with a given operator.
+ *
+ * Those macros are shorthands for the most of the basic C types and operators,
+ * so that the format and operator can be properly selected.
+ *
+ * The following comparision function types are available:
+ *
+ * | Type |   Literal Meaning   |    Operator    |
+ * |------|---------------------|----------------|
+ * |  EQ  | Equals?             | _exp_ == _val_ |
+ * |  NE  | Not equals?         | _exp_ != _val_ |
+ * |  LT  | Less than?          | _exp_ <  _val_ |
+ * |  LE  | Less or equals?     | _exp_ <= _val_ |
+ * |  GT  | Greater than?       | _exp_ >  _val_ |
+ * |  GE  | Greater or equals?  | _exp_ >= _val_ |
+ *
+ * @param   _exp_ - [in] Expected value to be compered with.
+ * @param   _val_ - [in] Value that expected is compared with.
+ *
+ * @{
+ */
 #define ASSERT_EQ(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, ==)
 #define ASSERT_NE(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, !=)
 #define ASSERT_LT(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, <)
@@ -206,16 +244,23 @@ do { \
 #define ASSERT_LE_INT_MAX(_exp_,_val_) ASSERT_LE(_exp_,_val_,PRIiMAX)
 #define ASSERT_GT_INT_MAX(_exp_,_val_) ASSERT_GT(_exp_,_val_,PRIiMAX)
 #define ASSERT_GE_INT_MAX(_exp_,_val_) ASSERT_GE(_exp_,_val_,PRIiMAX)
+///@}
 
 /**
- * With the help of these TEST_xxx we obtain practical shorthands for checking
- * a function result agains OS_Error_t error codes.
+ * @brief   Asserts function's return error codes.
+ *
+ * With the help of these TEST_xxx we obtain practical shorthands for asserting
+ * a function's result against the OS_Error_t error codes.
  *
  * Furthermore (and more importantly), we can define and use our own assertions,
  * so that we can add the name of the test to a failing assertion. This is
  * useful if the assert does not fail in the test function itself, but in a
  * function called by the test (in this case, assert does not give the test
  * function name but the name of the subfunction).
+ *
+ * @param   _fn_ - [in] Function to be asserted.
+ *
+ * @{
  */
 
 // Check DEVICE return codes
@@ -243,9 +288,14 @@ do { \
 // Check domain specific return codes
 #define TEST_CFG_PARAM_NOT_FOUND(_fn_) \
             ASSERT_EQ_INT(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND, _fn_)
+///@}
 
 /**
- * Check boolean expression and not an error code
+ * @brief   Asserts boolean expression and not an error code.
+ *
+ * @param   _st_ - [in] Boolean expression to be asserted.
+ *
+ * @{
  */
 #define TEST_TRUE(_st_) do \
 { \
@@ -263,3 +313,4 @@ do { \
 
 #define ASSERT_TRUE(_val_)  TEST_TRUE(_val_)
 #define ASSERT_FALSE(_val_) TEST_TRUE(!_val_)
+///@}
