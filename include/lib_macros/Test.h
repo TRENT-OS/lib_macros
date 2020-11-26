@@ -161,8 +161,9 @@ do { \
         const int ret = snprintf( \
                             msg, sizeof(msg), \
                             "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
-                            "[actual value: %" _fmt_ "]", \
-                            _testName, val); \
+                            "[expected value: %" _fmt_ \
+                            " actual value: %" _fmt_ "]", \
+                            _testName, exp, val); \
         if(ret>=sizeof(msg)) \
         { \
             Debug_LOG_WARNING("Message was truncated."); \
@@ -306,7 +307,8 @@ do { \
     if(!(_st_)) \
     { \
         char msg[_TEST_MSG_MAX_LEN]; \
-        int ret = snprintf(msg, sizeof(msg), "@%s: " #_st_, _testName); \
+        int ret = snprintf( \
+            msg, sizeof(msg), "@%s: " #_st_ "is not true.", _testName); \
         if(ret>=sizeof(msg)) \
         { \
             Debug_LOG_WARNING("Message was truncated."); \
