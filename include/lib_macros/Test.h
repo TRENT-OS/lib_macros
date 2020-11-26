@@ -71,8 +71,8 @@ static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
  *  TEST_START("i", mode)
  *      Test has one argument (mode), which is an int
  *  TEST_START("s", desc, "i", mode)
- *      Test has two arguments (desc, mode), the first is a string and the second
- *      an int.
+ *      Test has two arguments (desc, mode), the first is a string and the
+ *      second an int.
  */
 #define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
     _prfx_##_##_sufx_
