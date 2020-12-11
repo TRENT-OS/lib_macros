@@ -42,7 +42,9 @@
  * @note    If TEST_START was not called, result still will be correctly printed
  *          but test name will be set to "<undefined>".
  */
-static char _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
+
+static __attribute__((unused)) char
+_testName[_TEST_NAME_MAX_LEN] = "<undefined>";
 
 /**
  * @brief   Test's start and finish macros.
