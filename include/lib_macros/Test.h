@@ -245,11 +245,14 @@ do { \
  * @{
  */
 
-// Check DEVICE return codes
+// Check DEVICE specific return codes
 #define TEST_DEV_INVALID(_fn_)      ASSERT_EQ_INT(OS_ERROR_DEVICE_INVALID,     _fn_)
 #define TEST_DEV_NOT_PRESENT(_fn_)  ASSERT_EQ_INT(OS_ERROR_DEVICE_NOT_PRESENT, _fn_)
 #define TEST_DEV_BUSY(_fn_)         ASSERT_EQ_INT(OS_ERROR_DEVICE_BUSY,        _fn_)
-// Check generic return codes
+// Check CONFIG specific return codes
+#define TEST_CFG_PARAM_NOT_FOUND(_fn_) \
+    ASSERT_EQ_INT(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND, _fn_)
+// Check GENERIC return codes
 #define TEST_BUF_FULL(_fn_)         ASSERT_EQ_INT(OS_ERROR_BUFFER_FULL,        _fn_)
 #define TEST_BUF_EMPTY(_fn_)        ASSERT_EQ_INT(OS_ERROR_BUFFER_EMPTY,       _fn_)
 #define TEST_NO_DATA(_fn_)          ASSERT_EQ_INT(OS_ERROR_NO_DATA,            _fn_)
@@ -273,9 +276,6 @@ do { \
 #define TEST_NOT_IMPL(_fn_)         ASSERT_EQ_INT(OS_ERROR_NOT_IMPLEMENTED,    _fn_)
 #define TEST_GENERIC(_fn_)          ASSERT_EQ_INT(OS_ERROR_GENERIC,            _fn_)
 #define TEST_SUCCESS(_fn_)          ASSERT_EQ_INT(OS_SUCCESS,                  _fn_)
-// Check domain specific return codes
-#define TEST_CFG_PARAM_NOT_FOUND(_fn_) \
-            ASSERT_EQ_INT(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND, _fn_)
 ///@}
 
 /**
