@@ -178,6 +178,13 @@ do { \
 #define ASSERT_GT(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, >)
 #define ASSERT_GE(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, >=)
 
+#define ASSERT_EQ_OS_ERR(_exp_,_val_)   ASSERT_EQ_INT(_exp_,_val_)
+#define ASSERT_NE_OS_ERR(_exp_,_val_)   ASSERT_NE_INT(_exp_,_val_)
+#define ASSERT_LT_OS_ERR(_exp_,_val_)   ASSERT_LT_INT(_exp_,_val_)
+#define ASSERT_LE_OS_ERR(_exp_,_val_)   ASSERT_LE_INT(_exp_,_val_)
+#define ASSERT_GT_OS_ERR(_exp_,_val_)   ASSERT_GT_INT(_exp_,_val_)
+#define ASSERT_GE_OS_ERR(_exp_,_val_)   ASSERT_GE_INT(_exp_,_val_)
+
 #define ASSERT_EQ_UINT(_exp_,_val_) ASSERT_EQ(_exp_,_val_,"u")
 #define ASSERT_NE_UINT(_exp_,_val_) ASSERT_NE(_exp_,_val_,"u")
 #define ASSERT_LT_UINT(_exp_,_val_) ASSERT_LT(_exp_,_val_,"u")
