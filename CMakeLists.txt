@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.17)
 # Add these, so we can access FOR_EACH macros from LibMacros/ via camkes files
 if (SDK_USE_CAMKES)
     CAmkESAddCPPInclude("include")
-endif()
+endif ()
 
 #-------------------------------------------------------------------------------
 project(lib_macros C)
