@@ -106,10 +106,13 @@ do { \
     ); \
 } while(0)
 #define TEST_START(...) \
+do { \
     SELECT_START( \
         _TEST_START,##__VA_ARGS__, \
         INVALID,3,3,2,2,1,1,INVALID,0 \
-    )(__VA_ARGS__)
+    )(__VA_ARGS__); \
+    Debug_LOG_INFO("!!! %s: START", _testName); /* _testName is created by _TEST_START */ \
+} while(0)
 
 // This outputs the tests name as a marker that it has been completed. Also, we
 // reset the _testName to make incorrect use of TEST_START/TEST_FINISH more easy
