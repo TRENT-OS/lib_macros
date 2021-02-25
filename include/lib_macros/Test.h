@@ -46,6 +46,14 @@
 static __attribute__((unused)) char
 _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
 
+
+#define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
+    _prfx_##_##_sufx_
+
+
+#define _TEST_START_INVALID(...) \
+    Debug_ASSERT_PRINTFLN(0, "Invalid number of many arguments for TEST_START.")
+
 /**
  * @brief   Test's start and finish macros.
  *
@@ -69,59 +77,59 @@ _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
  * @endcode
  * @{
  */
-#define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
-    _prfx_##_##_sufx_
-#define _TEST_START_INVALID(...) \
-    Debug_ASSERT_PRINTFLN(0, "Invalid number of many arguments for TEST_START.")
 #define _TEST_START_3(_f0_,_p0_,_f1_,_p1_,_f2_,_p2_) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s(%s=%"_f0_",%s=%"_f1_",%s=%"_f2_")", \
-        __func__, #_p0_,_p0_,#_p1_,_p1_,#_p2_,_p2_ \
-    ); \
-} while(0)
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_",%s=%"_f1_",%s=%"_f2_")", \
+            __func__, #_p0_,_p0_,#_p1_,_p1_,#_p2_,_p2_ \
+        ); \
+    } while(0)
+
 #define _TEST_START_2(_f0_,_p0_,_f1_,_p1_) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s(%s=%"_f0_",%s=%"_f1_")", \
-        __func__,#_p0_,_p0_,#_p1_,_p1_ \
-    ); \
-} while(0)
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_",%s=%"_f1_")", \
+            __func__,#_p0_,_p0_,#_p1_,_p1_ \
+        ); \
+    } while(0)
+
 #define _TEST_START_1(_f0_,_p0_) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s(%s=%"_f0_")", \
-        __func__,#_p0_,_p0_ \
-    ); \
-} while(0)
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_")", \
+            __func__,#_p0_,_p0_ \
+        ); \
+    } while(0)
+
 #define _TEST_START_0(...) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s", \
-        __func__ \
-    ); \
-} while(0)
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s", \
+            __func__ \
+        ); \
+    } while(0)
+
 #define TEST_START(...) \
-do { \
-    SELECT_START( \
-        _TEST_START,##__VA_ARGS__, \
-        INVALID,3,3,2,2,1,1,INVALID,0 \
-    )(__VA_ARGS__); \
-    Debug_LOG_INFO("!!! %s: START", _testName); /* _testName is created by _TEST_START */ \
-} while(0)
+    do { \
+        SELECT_START( \
+            _TEST_START,##__VA_ARGS__, \
+            INVALID,3,3,2,2,1,1,INVALID,0 \
+        )(__VA_ARGS__); \
+        Debug_LOG_INFO("!!! %s: START", _testName); /* _testName is created by _TEST_START */ \
+    } while(0)
 
 // This outputs the tests name as a marker that it has been completed. Also, we
 // reset the _testName to make incorrect use of TEST_START/TEST_FINISH more easy
 // to spot.
 #define TEST_FINISH() \
-do { \
-    Debug_LOG_INFO("!!! %s: OK", _testName); \
-    snprintf(_testName, sizeof(_testName), "<undefined>"); \
-} while(0)
+    do { \
+        Debug_LOG_INFO("!!! %s: OK", _testName); \
+        snprintf(_testName, sizeof(_testName), "<undefined>"); \
+    } while(0)
 ///@}
 
 /**
@@ -140,17 +148,17 @@ do { \
  * @param   _op_  - [in] Comparision operator e.g. `==`, `<`, `>`.
  */
 #define ASSERT_COMPARE(_exp_,_val_,_fmt_,_op_) \
-do { \
-    const typeof(_exp_) exp = _exp_; \
-    const typeof(_val_) val = _val_; \
-    const bool compareResult = (exp _op_ val); \
-    \
-    Debug_ASSERT_PRINTFLN( \
-        compareResult, \
-        "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
-        "[expected value: %" _fmt_ " actual value: %" _fmt_ "]", \
-        _testName, exp, val); \
-} while(0)
+    do { \
+        const typeof(_exp_) exp = _exp_; \
+        const typeof(_val_) val = _val_; \
+        const bool compareResult = (exp _op_ val); \
+        \
+        Debug_ASSERT_PRINTFLN( \
+            compareResult, \
+            "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
+            "[expected value: %" _fmt_ " actual value: %" _fmt_ "]", \
+            _testName, exp, val); \
+    } while(0)
 
 /**
  * @brief   Compares expected and actual values with a given operator.
@@ -321,10 +329,10 @@ do { \
  *
  * @{
  */
-#define TEST_TRUE(_st_) do \
-{ \
-    Debug_ASSERT_PRINTFLN(_st_, "@%s: " #_st_ "is not true.", _testName); \
-} while(0)
+#define TEST_TRUE(_st_) \
+    do { \
+        Debug_ASSERT_PRINTFLN(_st_, "@%s: " #_st_ "is not true.", _testName); \
+    } while(0)
 
 #define ASSERT_TRUE(_val_)  TEST_TRUE(_val_)
 #define ASSERT_FALSE(_val_) TEST_TRUE(!_val_)
