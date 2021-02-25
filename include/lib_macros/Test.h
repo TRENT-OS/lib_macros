@@ -42,17 +42,57 @@
  * @note    If TEST_START was not called, result still will be correctly printed
  *          but test name will be set to "<undefined>".
  */
-
 static __attribute__((unused)) char
 _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
 
 
-#define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
-    _prfx_##_##_sufx_
+// helper macro invoked via SELECT_START()
+#define _TEST_START_3(_f0_,_p0_,_f1_,_p1_,_f2_,_p2_) \
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_",%s=%"_f1_",%s=%"_f2_")", \
+            __func__, #_p0_,_p0_,#_p1_,_p1_,#_p2_,_p2_ \
+        ); \
+    } while(0)
 
+// helper macro invoked via SELECT_START()
+#define _TEST_START_2(_f0_,_p0_,_f1_,_p1_) \
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_",%s=%"_f1_")", \
+            __func__,#_p0_,_p0_,#_p1_,_p1_ \
+        ); \
+    } while(0)
 
+// helper macro invoked via SELECT_START()
+#define _TEST_START_1(_f0_,_p0_) \
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_")", \
+            __func__,#_p0_,_p0_ \
+        ); \
+    } while(0)
+
+// helper macro invoked via SELECT_START()
+#define _TEST_START_0(...) \
+    do { \
+        snprintf( \
+            _testName, sizeof(_testName), \
+            "%s", \
+            __func__ \
+        ); \
+    } while(0)
+
+// helper macro invoked via SELECT_START()
 #define _TEST_START_INVALID(...) \
     Debug_ASSERT_PRINTFLN(0, "Invalid number of many arguments for TEST_START.")
+
+// helper macro for TEST_START() below
+#define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
+    _prfx_##_##_sufx_
 
 /**
  * @brief   Test's start and finish macros.
@@ -77,54 +117,20 @@ _testName[_TEST_NAME_MAX_LEN] = "<undefined>";
  * @endcode
  * @{
  */
-#define _TEST_START_3(_f0_,_p0_,_f1_,_p1_,_f2_,_p2_) \
-    do { \
-        snprintf( \
-            _testName, sizeof(_testName), \
-            "%s(%s=%"_f0_",%s=%"_f1_",%s=%"_f2_")", \
-            __func__, #_p0_,_p0_,#_p1_,_p1_,#_p2_,_p2_ \
-        ); \
-    } while(0)
-
-#define _TEST_START_2(_f0_,_p0_,_f1_,_p1_) \
-    do { \
-        snprintf( \
-            _testName, sizeof(_testName), \
-            "%s(%s=%"_f0_",%s=%"_f1_")", \
-            __func__,#_p0_,_p0_,#_p1_,_p1_ \
-        ); \
-    } while(0)
-
-#define _TEST_START_1(_f0_,_p0_) \
-    do { \
-        snprintf( \
-            _testName, sizeof(_testName), \
-            "%s(%s=%"_f0_")", \
-            __func__,#_p0_,_p0_ \
-        ); \
-    } while(0)
-
-#define _TEST_START_0(...) \
-    do { \
-        snprintf( \
-            _testName, sizeof(_testName), \
-            "%s", \
-            __func__ \
-        ); \
-    } while(0)
-
 #define TEST_START(...) \
     do { \
+        /* SELECT_START() calls _TEST_START_[n]  */
         SELECT_START( \
             _TEST_START,##__VA_ARGS__, \
             INVALID,3,3,2,2,1,1,INVALID,0 \
         )(__VA_ARGS__); \
-        Debug_LOG_INFO("!!! %s: START", _testName); /* _testName is created by _TEST_START */ \
+        /* _testName is created by _TEST_START */
+        Debug_LOG_INFO("!!! %s: START", _testName);  \
     } while(0)
 
-// This outputs the tests name as a marker that it has been completed. Also, we
-// reset the _testName to make incorrect use of TEST_START/TEST_FINISH more easy
-// to spot.
+// This prints a message that the test has completed successfully. The variable
+// "_testName" is created and populated by _TEST_START(), we clear is here to
+// help spotting incorrect usage of the TEST_START() and TEST_FINISH() macros.
 #define TEST_FINISH() \
     do { \
         Debug_LOG_INFO("!!! %s: OK", _testName); \
