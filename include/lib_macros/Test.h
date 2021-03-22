@@ -13,7 +13,6 @@
  * Once the tests are written, just pipe the output to the test_parser.py, so
  * that the pytest part can be generated.
  *
- * @see https://wiki.hensoldt-cyber.systems/display/HEN/Testing+SEOS+with+PyTest
  *
  */
 #pragma once
