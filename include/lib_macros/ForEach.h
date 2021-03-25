@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020, HENSOLDT Cyber GmbH
+ * Copyright (C) 2020-2021, HENSOLDT Cyber GmbH
  */
 
 #pragma once
@@ -256,7 +256,7 @@
  * client is connected without specifying how (e.g., rpc endpoint, or signal,
  *  ...) as macro parameter.
  *
- * This macro requires a another macro (passed via _fn_) which has to look
+ * This macro requires another macro (passed via _fn_) which has to look
  * like this:
  *
  *      #define DO_SOMETHING_0P(_inst_,_cli_,_num_) \
@@ -282,8 +282,8 @@
  * This macro is to be used in variadic client connection macros, where every
  * client is connected via ONE param (e.g., rpc endpoint, or signal, ...)
  *
- * This macro requires a another macro (passed via _fn_) which has to look
- * like this:
+ * This macro requires another macro (passed via _fn_) which has to look like
+ *  this:
  *
  *      #define DO_SOMETHING_1P(_inst_,_cli_,_p0_,_num_) \
  *          ...
@@ -309,7 +309,7 @@
  * This macro is to be used in variadic client connection macros, where every
  * client is connected via TWO params (e.g., rpc endpoint and dataport)
  *
- * This macro requires a another macro (passed via _fn_) which has to look
+ * This macro requires another macro (passed via _fn_) which has to look
  * like this:
  *
  *      #define DO_SOMETHING_2P(_inst_,_cli_,_p0_,_p1_,_num_) \
