@@ -90,7 +90,206 @@
  * The following are just helper macros, to do a FOR_EACH loop with one extra
  * param and have the "loop index" in the right order.
  */
-
+#define FOR_EACH_1P_16_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,16)
+#define FOR_EACH_1P_16_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,15) \
+    FOR_EACH_1P_16_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,14) \
+    FOR_EACH_1P_16_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,13) \
+    FOR_EACH_1P_16_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,12) \
+    FOR_EACH_1P_16_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,11) \
+    FOR_EACH_1P_16_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,10) \
+    FOR_EACH_1P_16_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_16_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_16_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_16_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_11(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_16_10(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_12(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_16_11(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_13(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_16_12(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_14(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_16_13(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16_15(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_16_14(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_16(_fn_,_inst_,_cli_,_p0_, ...)   _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_16_15(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_15_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,15)
+#define FOR_EACH_1P_15_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,14) \
+    FOR_EACH_1P_15_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,13) \
+    FOR_EACH_1P_15_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,12) \
+    FOR_EACH_1P_15_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,11) \
+    FOR_EACH_1P_15_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,10) \
+    FOR_EACH_1P_15_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_15_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_15_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_15_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_15_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_11(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_15_10(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_12(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_15_11(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_13(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_15_12(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15_14(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_15_13(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_15(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_15_14(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_14_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,14)
+#define FOR_EACH_1P_14_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,13) \
+    FOR_EACH_1P_14_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,12) \
+    FOR_EACH_1P_14_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,11) \
+    FOR_EACH_1P_14_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,10) \
+    FOR_EACH_1P_14_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_14_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_14_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_14_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_14_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_14_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_11(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_14_10(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_12(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_14_11(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14_13(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_14_12(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_14(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_14_13(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_13_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,13)
+#define FOR_EACH_1P_13_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,12) \
+    FOR_EACH_1P_13_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,11) \
+    FOR_EACH_1P_13_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,10) \
+    FOR_EACH_1P_13_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_13_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_13_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_13_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_13_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_13_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_13_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_11(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_13_10(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13_12(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_13_11(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_13(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_13_12(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_12_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,12)
+#define FOR_EACH_1P_12_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,11) \
+    FOR_EACH_1P_12_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,10) \
+    FOR_EACH_1P_12_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_12_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_12_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_12_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_12_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_12_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_12_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_12_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12_11(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_12_10(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_12(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_12_11(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_11_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,11)
+#define FOR_EACH_1P_11_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,10) \
+    FOR_EACH_1P_11_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_11_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_11_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_11_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_11_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_11_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_11_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_11_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_11_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_11(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_11_10(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_10_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,10)
+#define FOR_EACH_1P_10_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,9) \
+    FOR_EACH_1P_10_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_10_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_10_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_10_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_10_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_10_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_10_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_10_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_10(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_10_9(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
+#define FOR_EACH_1P_9_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,9)
+#define FOR_EACH_1P_9_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,8) \
+    FOR_EACH_1P_9_1(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9_3(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
+    FOR_EACH_1P_9_2(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9_4(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,6) \
+    FOR_EACH_1P_9_3(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9_5(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,5) \
+    FOR_EACH_1P_9_4(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9_6(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,4) \
+    FOR_EACH_1P_9_5(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9_7(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,3) \
+    FOR_EACH_1P_9_6(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9_8(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,2) \
+    FOR_EACH_1P_9_7(_fn_,_inst_,_cli_,__VA_ARGS__)
+#define FOR_EACH_1P_9(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,1) \
+    FOR_EACH_1P_9_8(_fn_,_inst_,_cli_,__VA_ARGS__)
+// -----------------------------------------------------------------------------
 #define FOR_EACH_1P_8_1(_fn_,_inst_,_cli_,_p0_)      _fn_(_inst_,_cli_,_p0_,8)
 #define FOR_EACH_1P_8_2(_fn_,_inst_,_cli_,_p0_, ...) _fn_(_inst_,_cli_,_p0_,7) \
     FOR_EACH_1P_8_1(_fn_,_inst_,_cli_,__VA_ARGS__)
@@ -164,7 +363,7 @@
 #define FOR_EACH_1P_1(_fn_,_inst_,_cli_,_p0_)        _fn_(_inst_,_cli_,_p0_,1)
 // -----------------------------------------------------------------------------
 #define FOR_EACH_1P_GET_MACRO( \
-    _0,_1,_2,_3,_4,_5,_6,_7,_8,NAME,...) \
+    _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,_13,_14,_15,_16,NAME,...) \
         FOR_EACH_1P_ ## NAME
 
 /*
@@ -302,7 +501,7 @@
  */
 #define FOR_EACH_1P(_fn_,_inst_,_cli_,...) \
   FOR_EACH_1P_GET_MACRO( \
-    _0,__VA_ARGS__, 8,7,6,5,4,3,2,1) \
+    _0,__VA_ARGS__, 16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1) \
         (_fn_,_inst_,_cli_,__VA_ARGS__)
 
 /*
