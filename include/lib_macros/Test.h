@@ -26,10 +26,11 @@
 /**
  * @brief   Max test name length
  *
- * Name of the test function, should not be required to be too big.
+ * Name of the test function, should not be required to be too big (excluding
+ * null terminator).
  */
 #if !defined(_TEST_NAME_MAX_LEN)
-# define _TEST_NAME_MAX_LEN 128
+# define _TEST_NAME_MAX_LEN 127
 #endif
 
 /**
@@ -43,7 +44,7 @@
  */
 
 static __attribute__((unused)) char
-_testName[_TEST_NAME_MAX_LEN] = "<undefined>";
+_testName[_TEST_NAME_MAX_LEN + 1] = "<undefined>";
 
 /**
  * @brief   Test's start and finish macros.
