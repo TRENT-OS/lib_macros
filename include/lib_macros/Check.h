@@ -86,6 +86,27 @@
         } \
     } while(0)
 
+#define CHECK_STR_IS_NUL_TERMINATED(_str_, _sz_) \
+    do { \
+        const char* const str = (_str_); \
+        typeof(_sz_) sz = (_sz_); \
+        if (NULL == str) \
+        { \
+            Debug_LOG_ERROR("%s: Parameter check failed! " \
+                            "String '%s' is NULL", \
+                            __func__, #_str_); \
+            return OS_ERROR_INVALID_PARAMETER; \
+        } \
+        if (strnlen(str, sz) == sz) \
+        { \
+            Debug_LOG_ERROR("%s: Parameter check failed! " \
+                            "String '%s' does not contain '\0' " \
+                            "in the first %d elements", \
+                            __func__, #_str_, _sz_); \
+            return OS_ERROR_INVALID_PARAMETER; \
+        } \
+    } while (0)
+
 #define CHECK_DATAPORT_SET(_port_) \
     do { \
         if (OS_Dataport_isUnset(_port_)) \
