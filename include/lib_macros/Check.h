@@ -76,7 +76,7 @@
 
 #define CHECK_STR_NOT_EMPTY(_str_) \
     do { \
-        typeof(_str_) str = (_str_); \
+        const char* const str = (_str_); \
         if ((NULL == str) || ('\0' == str[0])) \
         { \
             Debug_LOG_ERROR("%s: Parameter check failed! " \
