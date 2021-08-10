@@ -100,7 +100,7 @@
         if (strnlen(str, sz) == sz) \
         { \
             Debug_LOG_ERROR("%s: Parameter check failed! " \
-                            "String '%s' does not contain '\0' " \
+                            "String '%s' does not contain '\\0' " \
                             "in the first %d elements", \
                             __func__, #_str_, _sz_); \
             return OS_ERROR_INVALID_PARAMETER; \
