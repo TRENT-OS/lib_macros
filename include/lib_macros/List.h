@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2020-2021, HENSOLDT Cyber GmbH
+ */
+
 #pragma once
 
 #define _ITER_1(_m_)      _m_(1)
