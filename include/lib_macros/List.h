@@ -2,6 +2,13 @@
  * Copyright (C) 2020-2021, HENSOLDT Cyber GmbH
  */
 
+/**
+ * @file
+ *
+ * Macros used to generate a lists of elements.
+ *
+ */
+
 #pragma once
 
 #define _ITER_1(_m_)      _m_(1)

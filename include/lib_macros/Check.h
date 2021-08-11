@@ -4,9 +4,11 @@
 
 /**
  * @file
- * @brief Macros to perform common input parameter checks.
+ *
+ * Macros to perform common input parameter checks.
  *
  */
+
 #pragma once
 
 #include "lib_debug/Debug.h"

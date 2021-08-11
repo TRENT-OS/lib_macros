@@ -2,6 +2,13 @@
  * Copyright (C) 2020-2021, HENSOLDT Cyber GmbH
  */
 
+/**
+ * @file
+ *
+ * Macros to be used in variadic connector macros.
+ *
+ */
+
 #pragma once
 
 /*

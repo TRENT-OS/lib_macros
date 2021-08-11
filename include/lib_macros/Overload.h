@@ -4,9 +4,12 @@
 
 /**
  * @file
- * @brief Macros to allow overload of macros.
+ *
+ * Macros to allow overload of macros.
  *
  */
+
+#pragma once
 
 // Example for a macro FOO(..) that can be overloaded up to 2 arguments:
 // #define FOO(...) Overload_DEFINE_MACRO_2(FOO, __VA_ARGS__)

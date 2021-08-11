@@ -4,7 +4,8 @@
 
 /**
  * @file
- * @brief   Component's test API
+ *
+ * Component's test API
  *
  * Feel free to use the macros that are provided here for testing your software
  * module.
@@ -17,6 +18,7 @@
  *
  *
  */
+
 #pragma once
 
 #include "lib_debug/Debug.h"
