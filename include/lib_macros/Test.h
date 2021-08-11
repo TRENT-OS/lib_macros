@@ -1,4 +1,6 @@
-/* Copyright (C) 2019-2020, HENSOLDT Cyber GmbH */
+/*
+ * Copyright (C) 2019-2020, HENSOLDT Cyber GmbH
+ */
 
 /**
  * @file
