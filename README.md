@@ -1,3 +1,3 @@
 # Macros Library
 
-This repository contains commonly used macros.
+The library provides commonly used macros.
