@@ -1,5 +1,9 @@
 /*
- * Copyright (C) 2019-2020, HENSOLDT Cyber GmbH
+ * Copyright (C) 2019-2024, HENSOLDT Cyber GmbH
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
+ * For commercial licensing, contact: info.cyber@hensoldt.net
  */
 
 /**
@@ -34,7 +38,7 @@
  * null terminator).
  */
 #if !defined(_TEST_NAME_MAX_LEN)
-# define _TEST_NAME_MAX_LEN 127
+#define _TEST_NAME_MAX_LEN 127
 #endif
 
 /**
@@ -48,7 +52,7 @@
  */
 
 static __attribute__((unused)) char
-_testName[_TEST_NAME_MAX_LEN + 1] = "<undefined>";
+    _testName[_TEST_NAME_MAX_LEN + 1] = "<undefined>";
 
 /**
  * @brief   Test's start and finish macros.
@@ -73,59 +77,67 @@ _testName[_TEST_NAME_MAX_LEN + 1] = "<undefined>";
  * @endcode
  * @{
  */
-#define SELECT_START(_prfx_,_7,_6,_5,_4,_3,_2,_1,_0,_sufx_, ...) \
+#define SELECT_START(_prfx_, _7, _6, _5, _4, _3, _2, _1, _0, _sufx_, ...) \
     _prfx_##_##_sufx_
 #define _TEST_START_INVALID(...) \
     Debug_ASSERT_PRINTFLN(0, "Invalid number of many arguments for TEST_START.")
-#define _TEST_START_3(_f0_,_p0_,_f1_,_p1_,_f2_,_p2_) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s(%s=%"_f0_",%s=%"_f1_",%s=%"_f2_")", \
-        __func__, #_p0_,_p0_,#_p1_,_p1_,#_p2_,_p2_ \
-    ); \
-} while(0)
-#define _TEST_START_2(_f0_,_p0_,_f1_,_p1_) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s(%s=%"_f0_",%s=%"_f1_")", \
-        __func__,#_p0_,_p0_,#_p1_,_p1_ \
-    ); \
-} while(0)
-#define _TEST_START_1(_f0_,_p0_) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s(%s=%"_f0_")", \
-        __func__,#_p0_,_p0_ \
-    ); \
-} while(0)
-#define _TEST_START_0(...) \
-do { \
-    snprintf( \
-        _testName, sizeof(_testName), \
-        "%s", \
-        __func__ \
-    ); \
-} while(0)
-#define TEST_START(...) \
-do { \
-    SELECT_START( \
-        _TEST_START,##__VA_ARGS__, \
-        INVALID,3,3,2,2,1,1,INVALID,0 \
-    )(__VA_ARGS__); \
-    Debug_LOG_INFO("!!! %s: START", _testName); /* _testName is created by _TEST_START */ \
-} while(0)
+#define _TEST_START_3(_f0_, _p0_, _f1_, _p1_, _f2_, _p2_)     \
+    do                                                        \
+    {                                                         \
+        snprintf(                                             \
+            _testName, sizeof(_testName),                     \
+            "%s(%s=%"_f0_                                     \
+            ",%s=%"_f1_                                       \
+            ",%s=%"_f2_                                       \
+            ")",                                              \
+            __func__, #_p0_, _p0_, #_p1_, _p1_, #_p2_, _p2_); \
+    } while (0)
+#define _TEST_START_2(_f0_, _p0_, _f1_, _p1_)    \
+    do                                           \
+    {                                            \
+        snprintf(                                \
+            _testName, sizeof(_testName),        \
+            "%s(%s=%"_f0_                        \
+            ",%s=%"_f1_                          \
+            ")",                                 \
+            __func__, #_p0_, _p0_, #_p1_, _p1_); \
+    } while (0)
+#define _TEST_START_1(_f0_, _p0_)         \
+    do                                    \
+    {                                     \
+        snprintf(                         \
+            _testName, sizeof(_testName), \
+            "%s(%s=%"_f0_                 \
+            ")",                          \
+            __func__, #_p0_, _p0_);       \
+    } while (0)
+#define _TEST_START_0(...)                \
+    do                                    \
+    {                                     \
+        snprintf(                         \
+            _testName, sizeof(_testName), \
+            "%s",                         \
+            __func__);                    \
+    } while (0)
+#define TEST_START(...)                                                                       \
+    do                                                                                        \
+    {                                                                                         \
+        SELECT_START(                                                                         \
+            _TEST_START, ##__VA_ARGS__,                                                       \
+            INVALID, 3, 3, 2, 2, 1, 1, INVALID, 0)                                            \
+        (__VA_ARGS__);                                                                        \
+        Debug_LOG_INFO("!!! %s: START", _testName); /* _testName is created by _TEST_START */ \
+    } while (0)
 
 // This outputs the tests name as a marker that it has been completed. Also, we
 // reset the _testName to make incorrect use of TEST_START/TEST_FINISH more easy
 // to spot.
-#define TEST_FINISH() \
-do { \
-    Debug_LOG_INFO("!!! %s: OK", _testName); \
-    snprintf(_testName, sizeof(_testName), "<undefined>"); \
-} while(0)
+#define TEST_FINISH()                                          \
+    do                                                         \
+    {                                                          \
+        Debug_LOG_INFO("!!! %s: OK", _testName);               \
+        snprintf(_testName, sizeof(_testName), "<undefined>"); \
+    } while (0)
 ///@}
 
 /**
@@ -143,18 +155,19 @@ do { \
  * @param   _fmt_ - [in] Value's format used for printing it.
  * @param   _op_  - [in] Comparision operator e.g. `==`, `<`, `>`.
  */
-#define ASSERT_COMPARE(_exp_,_val_,_fmt_,_op_) \
-do { \
-    const typeof(_exp_) exp = _exp_; \
-    const typeof(_val_) val = _val_; \
-    const bool compareResult = (exp _op_ val); \
-    \
-    Debug_ASSERT_PRINTFLN( \
-        compareResult, \
-        "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
-        "[expected value: %" _fmt_ " actual value: %" _fmt_ "]", \
-        _testName, exp, val); \
-} while(0)
+#define ASSERT_COMPARE(_exp_, _val_, _fmt_, _op_)                       \
+    do                                                                  \
+    {                                                                   \
+        const typeof(_exp_) exp = _exp_;                                \
+        const typeof(_val_) val = _val_;                                \
+        const bool compareResult = (exp _op_ val);                      \
+                                                                        \
+        Debug_ASSERT_PRINTFLN(                                          \
+            compareResult,                                              \
+            "@%s: Comparison failure: " #_exp_ " " #_op_ " " #_val_ " " \
+            "[expected value: %" _fmt_ " actual value: %" _fmt_ "]",    \
+            _testName, exp, val);                                       \
+    } while (0)
 
 /**
  * @brief   Compares expected and actual values with a given operator.
@@ -178,68 +191,68 @@ do { \
  *
  * @{
  */
-#define ASSERT_EQ(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, ==)
-#define ASSERT_NE(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, !=)
-#define ASSERT_LT(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, <)
-#define ASSERT_LE(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, <=)
-#define ASSERT_GT(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, >)
-#define ASSERT_GE(_exp_,_val_,_fmt_) ASSERT_COMPARE(_exp_,_val_,_fmt_, >=)
+#define ASSERT_EQ(_exp_, _val_, _fmt_) ASSERT_COMPARE(_exp_, _val_, _fmt_, ==)
+#define ASSERT_NE(_exp_, _val_, _fmt_) ASSERT_COMPARE(_exp_, _val_, _fmt_, !=)
+#define ASSERT_LT(_exp_, _val_, _fmt_) ASSERT_COMPARE(_exp_, _val_, _fmt_, <)
+#define ASSERT_LE(_exp_, _val_, _fmt_) ASSERT_COMPARE(_exp_, _val_, _fmt_, <=)
+#define ASSERT_GT(_exp_, _val_, _fmt_) ASSERT_COMPARE(_exp_, _val_, _fmt_, >)
+#define ASSERT_GE(_exp_, _val_, _fmt_) ASSERT_COMPARE(_exp_, _val_, _fmt_, >=)
 
-#define ASSERT_EQ_OS_ERR(_exp_,_val_)   ASSERT_EQ_INT(_exp_,_val_)
-#define ASSERT_NE_OS_ERR(_exp_,_val_)   ASSERT_NE_INT(_exp_,_val_)
-#define ASSERT_LT_OS_ERR(_exp_,_val_)   ASSERT_LT_INT(_exp_,_val_)
-#define ASSERT_LE_OS_ERR(_exp_,_val_)   ASSERT_LE_INT(_exp_,_val_)
-#define ASSERT_GT_OS_ERR(_exp_,_val_)   ASSERT_GT_INT(_exp_,_val_)
-#define ASSERT_GE_OS_ERR(_exp_,_val_)   ASSERT_GE_INT(_exp_,_val_)
+#define ASSERT_EQ_OS_ERR(_exp_, _val_) ASSERT_EQ_INT(_exp_, _val_)
+#define ASSERT_NE_OS_ERR(_exp_, _val_) ASSERT_NE_INT(_exp_, _val_)
+#define ASSERT_LT_OS_ERR(_exp_, _val_) ASSERT_LT_INT(_exp_, _val_)
+#define ASSERT_LE_OS_ERR(_exp_, _val_) ASSERT_LE_INT(_exp_, _val_)
+#define ASSERT_GT_OS_ERR(_exp_, _val_) ASSERT_GT_INT(_exp_, _val_)
+#define ASSERT_GE_OS_ERR(_exp_, _val_) ASSERT_GE_INT(_exp_, _val_)
 
-#define ASSERT_EQ_UINT(_exp_,_val_) ASSERT_EQ(_exp_,_val_,"u")
-#define ASSERT_NE_UINT(_exp_,_val_) ASSERT_NE(_exp_,_val_,"u")
-#define ASSERT_LT_UINT(_exp_,_val_) ASSERT_LT(_exp_,_val_,"u")
-#define ASSERT_LE_UINT(_exp_,_val_) ASSERT_LE(_exp_,_val_,"u")
-#define ASSERT_GT_UINT(_exp_,_val_) ASSERT_GT(_exp_,_val_,"u")
-#define ASSERT_GE_UINT(_exp_,_val_) ASSERT_GE(_exp_,_val_,"u")
+#define ASSERT_EQ_UINT(_exp_, _val_) ASSERT_EQ(_exp_, _val_, "u")
+#define ASSERT_NE_UINT(_exp_, _val_) ASSERT_NE(_exp_, _val_, "u")
+#define ASSERT_LT_UINT(_exp_, _val_) ASSERT_LT(_exp_, _val_, "u")
+#define ASSERT_LE_UINT(_exp_, _val_) ASSERT_LE(_exp_, _val_, "u")
+#define ASSERT_GT_UINT(_exp_, _val_) ASSERT_GT(_exp_, _val_, "u")
+#define ASSERT_GE_UINT(_exp_, _val_) ASSERT_GE(_exp_, _val_, "u")
 
-#define ASSERT_EQ_INT(_exp_,_val_) ASSERT_EQ(_exp_,_val_,"d")
-#define ASSERT_NE_INT(_exp_,_val_) ASSERT_NE(_exp_,_val_,"d")
-#define ASSERT_LT_INT(_exp_,_val_) ASSERT_LT(_exp_,_val_,"d")
-#define ASSERT_LE_INT(_exp_,_val_) ASSERT_LE(_exp_,_val_,"d")
-#define ASSERT_GT_INT(_exp_,_val_) ASSERT_GT(_exp_,_val_,"d")
-#define ASSERT_GE_INT(_exp_,_val_) ASSERT_GE(_exp_,_val_,"d")
+#define ASSERT_EQ_INT(_exp_, _val_) ASSERT_EQ(_exp_, _val_, "d")
+#define ASSERT_NE_INT(_exp_, _val_) ASSERT_NE(_exp_, _val_, "d")
+#define ASSERT_LT_INT(_exp_, _val_) ASSERT_LT(_exp_, _val_, "d")
+#define ASSERT_LE_INT(_exp_, _val_) ASSERT_LE(_exp_, _val_, "d")
+#define ASSERT_GT_INT(_exp_, _val_) ASSERT_GT(_exp_, _val_, "d")
+#define ASSERT_GE_INT(_exp_, _val_) ASSERT_GE(_exp_, _val_, "d")
 
-#define ASSERT_EQ_SZ(_exp_,_val_) ASSERT_EQ(_exp_,_val_,"zu")
-#define ASSERT_NE_SZ(_exp_,_val_) ASSERT_NE(_exp_,_val_,"zu")
-#define ASSERT_LT_SZ(_exp_,_val_) ASSERT_LT(_exp_,_val_,"zu")
-#define ASSERT_LE_SZ(_exp_,_val_) ASSERT_LE(_exp_,_val_,"zu")
-#define ASSERT_GT_SZ(_exp_,_val_) ASSERT_GT(_exp_,_val_,"zu")
-#define ASSERT_GE_SZ(_exp_,_val_) ASSERT_GE(_exp_,_val_,"zu")
+#define ASSERT_EQ_SZ(_exp_, _val_) ASSERT_EQ(_exp_, _val_, "zu")
+#define ASSERT_NE_SZ(_exp_, _val_) ASSERT_NE(_exp_, _val_, "zu")
+#define ASSERT_LT_SZ(_exp_, _val_) ASSERT_LT(_exp_, _val_, "zu")
+#define ASSERT_LE_SZ(_exp_, _val_) ASSERT_LE(_exp_, _val_, "zu")
+#define ASSERT_GT_SZ(_exp_, _val_) ASSERT_GT(_exp_, _val_, "zu")
+#define ASSERT_GE_SZ(_exp_, _val_) ASSERT_GE(_exp_, _val_, "zu")
 
-#define ASSERT_EQ_UINT64(_exp_,_val_) ASSERT_EQ(_exp_,_val_,PRIu64)
-#define ASSERT_NE_UINT64(_exp_,_val_) ASSERT_NE(_exp_,_val_,PRIu64)
-#define ASSERT_LT_UINT64(_exp_,_val_) ASSERT_LT(_exp_,_val_,PRIu64)
-#define ASSERT_LE_UINT64(_exp_,_val_) ASSERT_LE(_exp_,_val_,PRIu64)
-#define ASSERT_GT_UINT64(_exp_,_val_) ASSERT_GT(_exp_,_val_,PRIu64)
-#define ASSERT_GE_UINT64(_exp_,_val_) ASSERT_GE(_exp_,_val_,PRIu64)
+#define ASSERT_EQ_UINT64(_exp_, _val_) ASSERT_EQ(_exp_, _val_, PRIu64)
+#define ASSERT_NE_UINT64(_exp_, _val_) ASSERT_NE(_exp_, _val_, PRIu64)
+#define ASSERT_LT_UINT64(_exp_, _val_) ASSERT_LT(_exp_, _val_, PRIu64)
+#define ASSERT_LE_UINT64(_exp_, _val_) ASSERT_LE(_exp_, _val_, PRIu64)
+#define ASSERT_GT_UINT64(_exp_, _val_) ASSERT_GT(_exp_, _val_, PRIu64)
+#define ASSERT_GE_UINT64(_exp_, _val_) ASSERT_GE(_exp_, _val_, PRIu64)
 
-#define ASSERT_EQ_INT64(_exp_,_val_) ASSERT_EQ(_exp_,_val_,PRIi64)
-#define ASSERT_NE_INT64(_exp_,_val_) ASSERT_NE(_exp_,_val_,PRIi64)
-#define ASSERT_LT_INT64(_exp_,_val_) ASSERT_LT(_exp_,_val_,PRIi64)
-#define ASSERT_LE_INT64(_exp_,_val_) ASSERT_LE(_exp_,_val_,PRIi64)
-#define ASSERT_GT_INT64(_exp_,_val_) ASSERT_GT(_exp_,_val_,PRIi64)
-#define ASSERT_GE_INT64(_exp_,_val_) ASSERT_GE(_exp_,_val_,PRIi64)
+#define ASSERT_EQ_INT64(_exp_, _val_) ASSERT_EQ(_exp_, _val_, PRIi64)
+#define ASSERT_NE_INT64(_exp_, _val_) ASSERT_NE(_exp_, _val_, PRIi64)
+#define ASSERT_LT_INT64(_exp_, _val_) ASSERT_LT(_exp_, _val_, PRIi64)
+#define ASSERT_LE_INT64(_exp_, _val_) ASSERT_LE(_exp_, _val_, PRIi64)
+#define ASSERT_GT_INT64(_exp_, _val_) ASSERT_GT(_exp_, _val_, PRIi64)
+#define ASSERT_GE_INT64(_exp_, _val_) ASSERT_GE(_exp_, _val_, PRIi64)
 
-#define ASSERT_EQ_UINT_MAX(_exp_,_val_) ASSERT_EQ(_exp_,_val_,PRIuMAX)
-#define ASSERT_NE_UINT_MAX(_exp_,_val_) ASSERT_NE(_exp_,_val_,PRIuMAX)
-#define ASSERT_LT_UINT_MAX(_exp_,_val_) ASSERT_LT(_exp_,_val_,PRIuMAX)
-#define ASSERT_LE_UINT_MAX(_exp_,_val_) ASSERT_LE(_exp_,_val_,PRIuMAX)
-#define ASSERT_GT_UINT_MAX(_exp_,_val_) ASSERT_GT(_exp_,_val_,PRIuMAX)
-#define ASSERT_GE_UINT_MAX(_exp_,_val_) ASSERT_GE(_exp_,_val_,PRIuMAX)
+#define ASSERT_EQ_UINT_MAX(_exp_, _val_) ASSERT_EQ(_exp_, _val_, PRIuMAX)
+#define ASSERT_NE_UINT_MAX(_exp_, _val_) ASSERT_NE(_exp_, _val_, PRIuMAX)
+#define ASSERT_LT_UINT_MAX(_exp_, _val_) ASSERT_LT(_exp_, _val_, PRIuMAX)
+#define ASSERT_LE_UINT_MAX(_exp_, _val_) ASSERT_LE(_exp_, _val_, PRIuMAX)
+#define ASSERT_GT_UINT_MAX(_exp_, _val_) ASSERT_GT(_exp_, _val_, PRIuMAX)
+#define ASSERT_GE_UINT_MAX(_exp_, _val_) ASSERT_GE(_exp_, _val_, PRIuMAX)
 
-#define ASSERT_EQ_INT_MAX(_exp_,_val_) ASSERT_EQ(_exp_,_val_,PRIiMAX)
-#define ASSERT_NE_INT_MAX(_exp_,_val_) ASSERT_NE(_exp_,_val_,PRIiMAX)
-#define ASSERT_LT_INT_MAX(_exp_,_val_) ASSERT_LT(_exp_,_val_,PRIiMAX)
-#define ASSERT_LE_INT_MAX(_exp_,_val_) ASSERT_LE(_exp_,_val_,PRIiMAX)
-#define ASSERT_GT_INT_MAX(_exp_,_val_) ASSERT_GT(_exp_,_val_,PRIiMAX)
-#define ASSERT_GE_INT_MAX(_exp_,_val_) ASSERT_GE(_exp_,_val_,PRIiMAX)
+#define ASSERT_EQ_INT_MAX(_exp_, _val_) ASSERT_EQ(_exp_, _val_, PRIiMAX)
+#define ASSERT_NE_INT_MAX(_exp_, _val_) ASSERT_NE(_exp_, _val_, PRIiMAX)
+#define ASSERT_LT_INT_MAX(_exp_, _val_) ASSERT_LT(_exp_, _val_, PRIiMAX)
+#define ASSERT_LE_INT_MAX(_exp_, _val_) ASSERT_LE(_exp_, _val_, PRIiMAX)
+#define ASSERT_GT_INT_MAX(_exp_, _val_) ASSERT_GT(_exp_, _val_, PRIiMAX)
+#define ASSERT_GE_INT_MAX(_exp_, _val_) ASSERT_GE(_exp_, _val_, PRIiMAX)
 ///@}
 
 /**
@@ -265,7 +278,7 @@ do { \
 #define TEST_DEV_NOT_PRESENT(_fn_) \
     ASSERT_EQ_INT(OS_ERROR_DEVICE_NOT_PRESENT, _fn_)
 #define TEST_DEV_BUSY(_fn_) \
-    ASSERT_EQ_INT(OS_ERROR_DEVICE_BUSY,  _fn_)
+    ASSERT_EQ_INT(OS_ERROR_DEVICE_BUSY, _fn_)
 // Check CONFIG specific return codes
 #define TEST_CFG_PARAM_NOT_FOUND(_fn_) \
     ASSERT_EQ_INT(OS_ERROR_CONFIG_PARAMETER_NOT_FOUND, _fn_)
@@ -325,11 +338,12 @@ do { \
  *
  * @{
  */
-#define TEST_TRUE(_st_) do \
-{ \
-    Debug_ASSERT_PRINTFLN(_st_, "@%s: " #_st_ "is not true.", _testName); \
-} while(0)
+#define TEST_TRUE(_st_)                                                       \
+    do                                                                        \
+    {                                                                         \
+        Debug_ASSERT_PRINTFLN(_st_, "@%s: " #_st_ "is not true.", _testName); \
+    } while (0)
 
-#define ASSERT_TRUE(_val_)  TEST_TRUE(_val_)
+#define ASSERT_TRUE(_val_) TEST_TRUE(_val_)
 #define ASSERT_FALSE(_val_) TEST_TRUE(!_val_)
 ///@}
